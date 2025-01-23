@@ -171,8 +171,8 @@ cython_debug/
 .pypirc
 
 # Project specific
-data/*
-!data/raw/
-!data/processed
+# Ignore everything in raw and processed folders
 data/raw/*
 data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
