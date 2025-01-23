@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [ master ]
+  push:
+    branches: [ master ]
+
+jobs:
+  commit-check:
+    name: Check Commit Messages
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Needed to fetch all history for checking commits
+
+    - name: "Check commit messages match angular style"
+      run: |
+        ! git log origin/master..HEAD --oneline --pretty=format:%s | \
+          grep -Ev '^(build|chore|ci|docs|feat|fix|perf|style|refactor|test):|^Merge '
+
+  lint:
+    name: Lint Checks
+    needs: commit-check
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.13
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+
+    - name: Cache Poetry dependencies
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/poetry
+        key: ${{ runner.os }}-poetry-${{ hashFiles('poetry.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-poetry-
+
+    - name: Install dependencies
+      run: |
+        curl -sSL https://install.python-poetry.org | python3 -
+        poetry config virtualenvs.create false
+        poetry install --sync --no-interaction
+
+    - name: Run lint
+      run: make lint
+
+  test:
+    name: Run Tests
+    needs: commit-check
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.13
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+
+    - name: Cache Poetry dependencies
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/poetry
+        key: ${{ runner.os }}-poetry-${{ hashFiles('poetry.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-poetry-
+
+    - name: Install dependencies
+      run: |
+        curl -sSL https://install.python-poetry.org | python3 -
+        poetry config virtualenvs.create false
+        poetry install --sync --no-interaction
+
+    - name: Run tests
+      run: make test
