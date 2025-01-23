@@ -6,13 +6,13 @@ from typing import Any, List
 
 import pytest
 
-from etl_open_meteo.src.weather_query import (
+from open_meteo_etl.src.weather_query import (
     Location,
     WeatherForecastQueryConfig,
     WeatherFrequency,
     WeatherHistoricalQueryConfig,
 )
-from etl_open_meteo.src.weather_schema import (
+from open_meteo_etl.src.weather_schema import (
     BaseWeatherMetrics,
     DailyWeatherMetrics,
     HourlyWeatherMetrics,

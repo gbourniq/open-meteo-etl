@@ -25,15 +25,15 @@ import pyarrow.parquet as pq
 from openmeteo_sdk.Unit import Unit
 from openmeteo_sdk.WeatherApiResponse import WeatherApiResponse
 
-from etl_open_meteo.config import get_queries
-from etl_open_meteo.src.utils import (
+from open_meteo_etl.config import get_queries
+from open_meteo_etl.src.utils import (
     PROCESSED_DATA_DIR,
     RAW_DATA_DIR,
     setup_api_client,
     setup_logging,
 )
-from etl_open_meteo.src.weather_query import BaseWeatherQueryConfig
-from etl_open_meteo.src.weather_schema import FREQUENCY_TO_SCHEMA, BaseWeatherMetrics
+from open_meteo_etl.src.weather_query import BaseWeatherQueryConfig
+from open_meteo_etl.src.weather_schema import FREQUENCY_TO_SCHEMA, BaseWeatherMetrics
 
 log = setup_logging()
 
