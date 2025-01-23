@@ -27,7 +27,6 @@ lint:
 
 clean:
 	find . -type f \( -name "*.pyc" -o -name ".DS_Store" -o -name "coverage.xml" \) -delete
-	find . -type d -name "__pycache__" -execdir mv {} __pycache_renamed \;
 	rm -rf open_meteo_etl/.cache
 	rm -rf .pytest_cache htmlcov .coverage .mypy_cache .ruff_cache
 
