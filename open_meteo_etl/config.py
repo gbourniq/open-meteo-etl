@@ -17,14 +17,14 @@ Example configs:
 from datetime import datetime, timedelta
 from typing import List
 
-from etl_open_meteo.src.weather_query import (
+from open_meteo_etl.src.weather_query import (
     BaseWeatherQueryConfig,
     Location,
     WeatherForecastQueryConfig,
     WeatherFrequency,
     WeatherHistoricalQueryConfig,
 )
-from etl_open_meteo.src.weather_schema import (
+from open_meteo_etl.src.weather_schema import (
     DailyWeatherMetrics,
     HourlyWeatherMetrics,
     MinutelyWeatherMetrics,

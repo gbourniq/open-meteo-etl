@@ -1,3 +1,5 @@
+# Open Meteo ETL
+
 ## Get started
 
 ### Set up the environment
@@ -25,13 +27,13 @@ poetry install --with dev
 ### Run the main script
 
 ```bash
-python etl_open_meteo/main.py
+python open_meteo_etl/main.py
 ```
 
 The script will:
 - Save raw data to `./data/raw`
 - Save processed data to `./data/processed`
-- Use weather data configurations from `etl_open_meteo/config.py`
+- Use weather data configurations from `open_meteo_etl/config.py`
 
 ### Run the tests
 
@@ -46,7 +48,7 @@ make test
 ├── data/
 │   ├── processed/              # Parsed and validated Parquet files
 │   └── raw/                    # Original API responses in CSV format
-├── etl_open_meteo/
+├── open_meteo_etl/
 │   ├── config.py               # ETL configuration
 │   ├── main.py                 # Pipeline orchestration and execution
 │   └── src/
@@ -76,7 +78,7 @@ The ETL pipeline could be orchestrated using either AWS Step Functions + Lambda 
   - Each ETL configuration (defined by location and frequency) can be processed independently, enabling parallel execution for improved scalability
 
 - **ETL Configuration**:
-  - Defines atomic weather query configurations in `etl_open_meteo/config.py`
+  - Defines atomic weather query configurations in `open_meteo_etl/config.py`
   - Each config represents a single location, frequency, and time range
   - Supports both predefined cities and custom coordinates
   - Example configs: Berlin historical data, Mount Everest forecasts

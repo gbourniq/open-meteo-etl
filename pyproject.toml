@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "etl_open_meteo"
+name = "open_meteo_etl"
 version = "0.1.0"
 description = "A Python project to ingest weather data from the OpenMeteo API."
 authors = ["Guillaume Bournique <guillaume.bournique@gmail.com>"]
 readme = "README.md"
-packages = [{ include = "etl_open_meteo", from = "." }]
+packages = [{ include = "open_meteo_etl", from = "." }]
 
 
 [tool.poetry.dependencies]
@@ -41,7 +41,7 @@ build-backend = "poetry.core.masonry.api"
 line-length = 89
 fix = true
 target-version = "py313"
-src = ["etl_open_meteo", "tests"]
+src = ["open_meteo_etl", "tests"]
 
 
 # black
@@ -50,7 +50,7 @@ line-length = 89
 preview = true
 enable-unstable-feature = ["string_processing"]
 include = '\.pyi?$'
-src = ["etl_open_meteo", "tests"]
+src = ["open_meteo_etl", "tests"]
 target-version = ["py313"]
 
 
@@ -58,7 +58,7 @@ target-version = ["py313"]
 [tool.isort]
 profile = "black"
 line_length = 89
-src_paths = ["etl_open_meteo", "tests"]
+src_paths = ["open_meteo_etl", "tests"]
 
 
 # autoflake
@@ -78,7 +78,7 @@ plugins = [
     "numpy.typing.mypy_plugin"
 ]
 python_version = "3.13"
-packages = ["etl_open_meteo"]
+packages = ["open_meteo_etl"]
 ignore_missing_imports = true
 disallow_untyped_defs = true
 check_untyped_defs = true
