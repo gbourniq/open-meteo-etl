@@ -28,14 +28,14 @@ lint:
 clean:
 	find . -type f \( -name "*.pyc" -o -name ".DS_Store" -o -name "coverage.xml" \) -delete
 	find . -type d -name "__pycache__" -execdir mv {} __pycache_renamed \;
-	rm -rf etl_open_meteo/.cache
+	rm -rf open_meteo_etl/.cache
 	rm -rf .pytest_cache htmlcov .coverage .mypy_cache .ruff_cache
 
 
 # UNIT TESTING
 
 test:
-	$(PYTHON) -m pytest --cov=etl_open_meteo --cov-report html --cov-report xml
+	$(PYTHON) -m pytest --cov=open_meteo_etl --cov-report html --cov-report xml
 
 test-coverage: test
 	cd htmlcov && $(PYTHON) -m http.server

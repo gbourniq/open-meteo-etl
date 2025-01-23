@@ -28,7 +28,7 @@ from typing import Any, Dict, List, Optional, Tuple, Type, TypedDict, Union
 from openmeteo_sdk.WeatherApiResponse import WeatherApiResponse
 from pydantic import BaseModel, Field, field_validator, model_validator
 
-from etl_open_meteo.src.weather_schema import (
+from open_meteo_etl.src.weather_schema import (
     BaseWeatherMetrics,
     DailyWeatherMetrics,
     HourlyWeatherMetrics,
