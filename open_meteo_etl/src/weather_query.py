@@ -92,12 +92,7 @@ class BaseWeatherQueryConfig(BaseModel, ABC):
         params = self.request_params()
         params_str = "\n  ".join(f"{k}: {v}" for k, v in params.items())
 
-        return (
-            f"{self.__class__.__name__}:\n"
-            f"  {params_str}\n"
-            f"  API URL: {self.api_url}\n"
-            f"  Output: {self.output_filename}"
-        )
+        return f"{self.__class__.__name__}:\n  {params_str}\n  API URL: {self.api_url}\n"
 
     # Mapping for frequency-related data
     FREQUENCY_MAPPINGS: Dict[WeatherFrequency, FrequencyMapping] = {
