@@ -97,6 +97,9 @@ def load(
         # Create DataFrame from the dictionary
         df = pd.DataFrame(data)
 
+        # Reorder columns to have obs_timestamp as the first column
+        df = df[['obs_timestamp'] + [col for col in df.columns if col != 'obs_timestamp']]
+
         # Add metadata columns
         df["latitude"] = response.Latitude()
         df["longitude"] = response.Longitude()
