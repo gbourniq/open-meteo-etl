@@ -16,6 +16,7 @@ Each stage adds structure and validation while maintaining data lineage.
 """
 
 import re
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 
 import openmeteo_requests
@@ -96,6 +97,11 @@ def load(
 
         # Create DataFrame from the dictionary
         df = pd.DataFrame(data)
+
+        # Reorder columns to have obs_timestamp as the first column
+        df = df[
+            ["obs_timestamp"] + [col for col in df.columns if col != "obs_timestamp"]
+        ]
 
         # Add metadata columns
         df["latitude"] = response.Latitude()
@@ -223,7 +229,7 @@ def parse(df: pd.DataFrame, output_filename: str) -> None:
     if not (frequency_match := re.search(r"frequency=([^/]+)", output_filename)):
         raise ValueError(f"Could not extract frequency from: {output_filename}")
     frequency = frequency_match.group(1)
-    schema = FREQUENCY_TO_SCHEMA[frequency]
+    schema = FREQUENCY_TO_SCHEMA[frequency]()
 
     # Add unit columns to schema
     unit_columns = [col for col in df.columns if col.startswith("unit_")]
@@ -260,23 +266,40 @@ def parse(df: pd.DataFrame, output_filename: str) -> None:
     log.info(f"Successfully parsed to {filepath}")
 
 
-if __name__ == "__main__":
+def main() -> None:
+
+    def process_config(config: BaseWeatherQueryConfig) -> tuple[str, bool, str]:
+        try:
+            weather_data = load(openmeteo=openmeteo, config=config)
+            check_data_integrity(weather_data)
+            parse(weather_data, output_filename=config.output_filename)
+            return repr(config), True, ""
+        except Exception as e:
+            log.error(f"Error processing config {repr(config)}: {str(e)}")
+            return repr(config), False, str(e)
+
     log.info("Starting weather data extraction")
     openmeteo = setup_api_client()
     configs = get_queries()
     log.info(f"Processing {len(configs)} weather query configs")
 
-    for config in configs:
-        weather_data = load(openmeteo=openmeteo, config=config)
-        check_data_integrity(weather_data)
-        parse(weather_data, output_filename=config.output_filename)
-        # Future transformation steps:
-        # - Separate timeseries and reference data
-        # - Calculate derived metrics
-        # - Deduplication
-        # - Normalize to common unit system
-        # - Handle missing values and data validation
-        # - Split data into daily files by location and frequency
-        # - Store data to final storage location
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        results = list(executor.map(process_config, configs))
 
-    log.info("Weather data ingestion completed")
+    # Log the number of successful and unsuccessful pipelines
+    log.info(
+        f"Successfully processed {sum(success for _, success, _ in results)} out of"
+        f" {len(configs)} runs."
+    )
+
+    unsuccessful_configs = [
+        (config_repr, error) for config_repr, success, error in results if not success
+    ]
+
+    if unsuccessful_configs:
+        for config_repr, error in unsuccessful_configs:
+            log.warning(f"Unsuccessful run:\n\n{config_repr}\n  Error: {error}")
+
+
+if __name__ == "__main__":
+    main()

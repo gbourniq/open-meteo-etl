@@ -69,6 +69,66 @@ def get_queries() -> List[BaseWeatherQueryConfig]:
             start_dt=now,
             end_dt=now + timedelta(days=7),
         ),
+        # Additional larger historical queries for testing
+        *[
+            WeatherHistoricalQueryConfig(
+                location=Location.LONDON,
+                metrics=metrics.get_all(),
+                frequency=freq,
+                start_dt=now - timedelta(days=365 * 10),
+                end_dt=now - timedelta(days=2),
+            )
+            for freq, metrics in zip(
+                [WeatherFrequency.EOD, WeatherFrequency.HOURLY],
+                [DailyWeatherMetrics, HourlyWeatherMetrics],
+            )
+        ],
+        *[
+            WeatherHistoricalQueryConfig(
+                location=Location.NEW_YORK,
+                metrics=metrics.get_all(),
+                frequency=freq,
+                start_dt=now - timedelta(days=365 * 10),
+                end_dt=now - timedelta(days=2),
+            )
+            for freq, metrics in zip(
+                [WeatherFrequency.EOD, WeatherFrequency.HOURLY],
+                [DailyWeatherMetrics, HourlyWeatherMetrics],
+            )
+        ],
+        # Additional forecast queries for testing, including past data
+        *[
+            WeatherForecastQueryConfig(
+                location=Location.BERLIN,
+                metrics=metrics.get_all(),
+                frequency=freq,
+                start_dt=now - timedelta(days=60),
+                end_dt=now + timedelta(days=14),
+            )
+            for freq, metrics in zip(
+                [
+                    WeatherFrequency.MINUTELY_15,
+                    WeatherFrequency.EOD,
+                    WeatherFrequency.HOURLY,
+                ],
+                [MinutelyWeatherMetrics, DailyWeatherMetrics, HourlyWeatherMetrics],
+            )
+        ],
+        # Intentional misconfiguration
+        WeatherForecastQueryConfig(
+            location=(27.9881, 86.9250),
+            elevation=8848,
+            metrics=[
+                MinutelyWeatherMetrics.TEMPERATURE_2M,
+                MinutelyWeatherMetrics.WIND_SPEED_10M,
+                MinutelyWeatherMetrics.WIND_GUSTS_10M,
+                MinutelyWeatherMetrics.VISIBILITY,
+                MinutelyWeatherMetrics.SNOWFALL,
+            ],
+            frequency=WeatherFrequency.MINUTELY_15,
+            start_dt=now,
+            end_dt=now + timedelta(days=20),  # too far ahead
+        ),
     ]
     return queries
 

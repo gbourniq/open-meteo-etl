@@ -165,8 +165,7 @@ class TestWeatherQueryConfig:
                     "WeatherHistoricalQueryConfig:\n  latitude: 52.52\n  longitude:"
                     " 13.41\n  daily: temperature_2m_max\n  start_date: 2023-12-25\n "
                     " end_date: 2024-01-02\n  API URL:"
-                    " https://archive-api.open-meteo.com/v1/archive\n  Output:"
-                    " Historical/location=BERLIN/frequency=EOD/20231225_20240101.csv"
+                    " https://archive-api.open-meteo.com/v1/archive\n"
                 ),
             ),
             (
@@ -176,8 +175,7 @@ class TestWeatherQueryConfig:
                     " 86.925\n  elevation: 8848.0\n  minutely_15: temperature_2m\n "
                     " start_minutely_15: 2024-01-01T12:00\n  end_minutely_15:"
                     " 2024-01-02T12:00\n  API URL:"
-                    " https://api.open-meteo.com/v1/forecast\n  Output:"
-                    " Forecast/location=27.9881_86.925/frequency=15_MINUTE/20240101_20240102.csv"
+                    " https://api.open-meteo.com/v1/forecast\n"
                 ),
             ),
         ],
