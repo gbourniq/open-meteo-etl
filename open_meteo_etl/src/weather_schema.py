@@ -203,7 +203,7 @@ class DailyWeatherMetrics(BaseWeatherMetrics):
 
 
 FREQUENCY_TO_SCHEMA = {
-    "15_MINUTE": MinutelyWeatherMetrics.get_schema(),
-    "1_HOUR": HourlyWeatherMetrics.get_schema(),
-    "EOD": DailyWeatherMetrics.get_schema(),
+    "15_MINUTE": MinutelyWeatherMetrics.get_schema,
+    "1_HOUR": HourlyWeatherMetrics.get_schema,
+    "EOD": DailyWeatherMetrics.get_schema,
 }

@@ -223,7 +223,7 @@ def parse(df: pd.DataFrame, output_filename: str) -> None:
     if not (frequency_match := re.search(r"frequency=([^/]+)", output_filename)):
         raise ValueError(f"Could not extract frequency from: {output_filename}")
     frequency = frequency_match.group(1)
-    schema = FREQUENCY_TO_SCHEMA[frequency]
+    schema = FREQUENCY_TO_SCHEMA[frequency]()
 
     # Add unit columns to schema
     unit_columns = [col for col in df.columns if col.startswith("unit_")]
