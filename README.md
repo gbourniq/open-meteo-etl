@@ -5,13 +5,13 @@
 This project is a Python-based ETL (Extract, Transform, Load) pipeline that integrates with the Open-Meteo API to fetch weather data, validate its quality, and store it in a structured format for further analysis. The pipeline is designed to handle both historical and forecast weather data at various temporal resolutions (e.g., 15-minute, hourly, daily).
 
 Features
-• Data Extraction: Fetches weather data from the Open-Meteo API for specific locations and time ranges. Supports multiple frequencies: 15-minutely, hourly, and daily. Handles both historical and forecast data.
-• Data Validation: Performs integrity checks to ensure data completeness and quality. Identifies issues like missing values or duplicate timestamps.
-• Data Transformation: Converts raw API responses into structured formats (CSV and Parquet). Validates data against predefined schemas for consistency.
-• Data Storage: Organizes data into a multi-stage data lake:
-• `/data/raw`: Unprocessed CSV files.
-• `/data/processed`: Validated Parquet files.
-• `/data/transformed`: Placeholder for future transformations.
+* Data Extraction: Fetches weather data from the Open-Meteo API for specific locations and time ranges. Supports multiple frequencies: 15-minutely, hourly, and daily. Handles both historical and forecast data.
+* Data Validation: Performs integrity checks to ensure data completeness and quality. Identifies issues like missing values or duplicate timestamps.
+* Data Transformation: Converts raw API responses into structured formats (CSV and Parquet). Validates data against predefined schemas for consistency.
+* Data Storage: Organizes data into a multi-stage data lake:
+* `/data/raw`: Unprocessed CSV files.
+* `/data/processed`: Validated Parquet files.
+* `/data/transformed`: Placeholder for future transformations.
 
 ## Project Structure
 
@@ -67,9 +67,9 @@ query = WeatherHistoricalQueryConfig(
 
 ## Notes
 
-• This project was developed as a personal initiative to explore ETL pipelines and weather APIs.
-• The Open-Meteo API does not require an API key, making it accessible for non-commercial use cases.
-• Time spent on this project: ~12 hours (including research and implementation).
+* This project was developed as a personal initiative to explore ETL pipelines and weather APIs.
+* The Open-Meteo API does not require an API key, making it accessible for non-commercial use cases.
+* Time spent on this project: ~12 hours (including research and implementation).
 
 ## Future Enhancements
 
@@ -80,5 +80,5 @@ query = WeatherHistoricalQueryConfig(
 
 ## References
 
-• Open-Meteo API Documentation
-• PyPI: openmeteo-requests
+* Open-Meteo API Documentation
+* PyPI: openmeteo-requests
