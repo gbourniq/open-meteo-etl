@@ -80,5 +80,5 @@ query = WeatherHistoricalQueryConfig(
 
 ## References
 
-* Open-Meteo API Documentation
-* PyPI: openmeteo-requests
+* [Open-Meteo API Documentation](https://open-meteo.com/en/docs)
+* [PyPI: openmeteo-requests](https://pypi.org/project/openmeteo-requests/)
