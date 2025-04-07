@@ -27,7 +27,7 @@ mypy = "^1.12.0"
 pandas-stubs = "^2.2.3.241126"
 pytest = "^8.3.3"
 pytest-cov = "^6.0.0"
-ruff = "^0.9.3"
+ruff = "^0.11.4"
 types-requests = "^2.32.0.20241016"
 
 
